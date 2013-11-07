@@ -8,10 +8,10 @@ import org.apache.hadoop.conf.*;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*;
-	
+        
 public class WordCount {
 
-	public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
+        public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
       private final static IntWritable one = new IntWritable(1);
       private Text word = new Text();
 
@@ -24,7 +24,7 @@ public class WordCount {
         }
       }
     }
-	
+        
     public static class Reduce extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
       public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
         int sum = 0;
@@ -51,13 +51,22 @@ public class WordCount {
 
       FileInputFormat.setInputPaths(conf, new Path(args[0]));
       FileOutputFormat.setOutputPath(conf, new Path(args[1]));
-
-      // TOOO: Find task level information
       
-      RunningJob runningJob = JobClient.runJob(conf);
-      JobStatus jobStatus = runningJob.getJobStatus();
+      // Submit the job
+      JobClient client = new JobClient(conf);
+      RunningJob runningJob = client.submitJob(conf);
       
-      float mapProgress = jobStatus.mapProgress();
-      float reduceProgress = jobStatus.reduceProgress();
+      // Begin monitoring for stragglers
+      Status status = new Status();
+      status.Monitor(client, runningJob);
     }
 }
+
+
+
+
+
+
+
+
+

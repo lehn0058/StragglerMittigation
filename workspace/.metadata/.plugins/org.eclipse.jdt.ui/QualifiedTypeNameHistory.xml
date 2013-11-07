@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapred.JobTracker"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapred.TaskTracker"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapred.JobStatus"/>
+<fullyQualifiedTypeName name="java.io.Console"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapred.JobClient"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapred.JobConf"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.server.jobtracker.TaskTracker"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapred.JobID"/>
+<fullyQualifiedTypeName name="sun.reflect.generics.reflectiveObjects.NotImplementedException"/>
+</qualifiedTypeNameHistroy>

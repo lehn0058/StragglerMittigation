@@ -1,0 +1,129 @@
+package mapreduce;
+
+import java.io.Console;
+import java.io.IOException;
+import java.util.*;
+
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.conf.*;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapred.*;
+import org.apache.hadoop.util.*;
+	
+public class WordCount {
+
+	public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
+      private final static IntWritable one = new IntWritable(1);
+      private Text word = new Text();
+
+      public void map(LongWritable key, Text value, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
+        String line = value.toString();
+        StringTokenizer tokenizer = new StringTokenizer(line);
+        while (tokenizer.hasMoreTokens()) {
+          word.set(tokenizer.nextToken());
+          output.collect(word, one);
+        }
+      }
+    }
+	
+    public static class Reduce extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
+      public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
+        int sum = 0;
+        while (values.hasNext()) {
+          sum += values.next().get();
+        }
+        output.collect(key, new IntWritable(sum));
+      }
+    }
+
+    public static void main(String[] args) throws Exception {
+      JobConf conf = new JobConf(WordCount.class);
+      conf.setJobName("wordcount");
+
+      conf.setOutputKeyClass(Text.class);
+      conf.setOutputValueClass(IntWritable.class);
+
+      conf.setMapperClass(Map.class);
+      conf.setCombinerClass(Reduce.class);
+      conf.setReducerClass(Reduce.class);
+
+      conf.setInputFormat(TextInputFormat.class);
+      conf.setOutputFormat(TextOutputFormat.class);
+
+      FileInputFormat.setInputPaths(conf, new Path(args[0]));
+      FileOutputFormat.setOutputPath(conf, new Path(args[1]));
+      
+      //RunningJob runningJob = JobClient.runJob(conf); // This is a syncronous call
+      
+      JobClient client = new JobClient();
+      RunningJob runningJob = client.submitJob(conf); // This is an asyncronous call
+      
+      // Probe for stragglers while the job is running
+      while (!runningJob.isComplete()){
+    	  // Wait for 5 seconds before continuing
+    	  Thread.sleep(5000);
+    	  
+    	  // Retrieve the latest task progress
+          JobStatus jobStatus = runningJob.getJobStatus();
+          TaskReport[] mapReports = client.getMapTaskReports(jobStatus.getJobID());
+          //TaskReport[] reduceReports = client.getReduceTaskReports(jobStatus.getJobID());
+          
+          ArrayList<TaskReport> stragglers = FindStragglers(mapReports);
+          
+          System.out.println("Number of stragglers found:" + stragglers.size());
+          System.console("Number of stragglers found:" + stragglers.size());
+          
+//          if (stragglers.size() == 0) {
+//        	  System.out.println(straggler.);
+//          }
+          
+          // TODO: test if these are CPU/RAM bound
+      }      
+    }
+    
+    // Retrieves amount of time a task has run, in milliseconds
+    private static long TimeElapsedForTask(TaskReport taskReport) {
+    	// If the task has not completed yet, its finish time may be zero
+    	if(taskReport.getFinishTime() == 0) {
+    		Date now = new Date();
+    		return now.getTime() - taskReport.getStartTime();
+    	}
+    	else {
+    		return taskReport.getFinishTime() - taskReport.getStartTime();
+    	}
+    }
+    
+    private static float MeanRunTime(TaskReport[] taskReports) {
+    	float totalRuntime = 0.0f;
+    	for (TaskReport taskReport : taskReports) {
+    		totalRuntime += TimeElapsedForTask(taskReport);
+       	}
+    	
+    	return totalRuntime / taskReports.length;
+    }
+    
+    private static ArrayList<TaskReport> FindStragglers(TaskReport[] taskReports) {
+    	// Get the mean runtime    	
+    	float meanRuntime = MeanRunTime(taskReports);
+    	
+    	// Find all tasks that are straggling
+    	ArrayList<TaskReport> stragglingTasks = new ArrayList<TaskReport>();
+		for (TaskReport taskReport : taskReports) {
+			// If the task is not complete AND it's runtime is more than the mean runtime, then it is a straggler
+			if (taskReport.getProgress() != 1 && TimeElapsedForTask(taskReport) > meanRuntime) {
+				stragglingTasks.add(taskReport);
+			}
+		}
+    	
+    	return stragglingTasks;
+    }
+}
+    
+    
+    
+    
+    
+    
+    
+    
+    

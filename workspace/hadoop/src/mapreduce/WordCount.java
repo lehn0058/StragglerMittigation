@@ -27,6 +27,17 @@ public class WordCount {
         
     public static class Reduce extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
       public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
+    	  
+//    	  // Induce artificial straggler
+//    	  try
+//    	  {
+//    		  Thread.sleep(100000);
+//    	  }
+//    	  catch(InterruptedException ex)
+//    	  {
+//    		    Thread.currentThread().interrupt();
+//    	  }
+    	  
         int sum = 0;
         while (values.hasNext()) {
           sum += values.next().get();
@@ -55,10 +66,13 @@ public class WordCount {
       // Submit the job
       JobClient client = new JobClient(conf);
       RunningJob runningJob = client.submitJob(conf);
+           
+      
+      
       
       // Begin monitoring for stragglers
-      Status status = new Status();
-      status.Monitor(client, runningJob);
+      Status status = new Status(client, runningJob, conf);
+      status.Monitor();
     }
 }
 

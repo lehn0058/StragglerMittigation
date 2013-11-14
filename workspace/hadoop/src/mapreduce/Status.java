@@ -8,8 +8,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.conf.*;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
-import org.apache.hadoop.mapreduce.server.jobtracker.TaskTracker;
-import org.apache.hadoop.util.*;
+import org.apache.hadoop.mapreduce.Cluster;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -27,13 +26,16 @@ public class Status
 		_conf = conf;
 	}
 	
-	// TODO: Analysis should probably be done for reducers and mappers separately.
+	// TODO: Analysis should be done for reducers and mappers separately.
 	// This is because reducers are long lived and are not necessarily straggling
 	// just because they are running longer than map tasks.
 	public void Monitor() throws Exception
 	{		
 		// Start the job tracker
 		//_jobTracker = JobTracker.startTracker(_conf);
+		
+		Cluster cluster = _client.getClusterHandle();
+		cluster.get
 		
 		//System.out.println("Job Tracker Map Task reports: " + _jobTracker.getMapTaskReports(_runningJob.getID()));
 		//System.out.println("Job Tracker Reduce Task reports: " + _jobTracker.getReduceTaskReports(_runningJob.getID()));

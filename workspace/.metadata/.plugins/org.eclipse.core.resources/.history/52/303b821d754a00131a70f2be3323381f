@@ -1,0 +1,19 @@
+package mapreduce;
+
+import org.apache.hadoop.mapred.TaskReport;
+
+public class TaskReportSnapshot
+{
+	private TaskReport _taskReport;
+	private long _startTime;
+	private long _finishTime;
+		
+	public TaskReportSnapshot(TaskReport taskReport)
+	{
+		_taskReport = taskReport;
+		_startTime = _taskReport.getStartTime();
+		_finishTime = _taskReport.getFinishTime();
+	}
+	
+	public long 
+}

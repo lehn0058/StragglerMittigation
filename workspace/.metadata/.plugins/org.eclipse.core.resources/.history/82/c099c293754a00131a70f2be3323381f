@@ -1,0 +1,54 @@
+package mapreduce;
+
+import java.util.Date;
+
+import org.apache.hadoop.mapred.TaskReport;
+
+public class TaskReportSnapshot
+{
+	private TaskReport _taskReport;
+	private long _startTime;
+	private long _finishTime;
+	private long _taskRunTime;
+		
+	public TaskReportSnapshot(TaskReport taskReport)
+	{
+		_taskReport = taskReport;
+		_startTime = _taskReport.getStartTime();
+		_finishTime = _taskReport.getFinishTime();
+		
+	}
+	
+	public long getStartTime()
+	{
+		return _startTime;
+	}
+	
+	public long getFinishTime()
+	{
+		return _finishTime;
+	}
+	
+	public long getTaskRunTime()
+	{
+		return _taskRunTime;
+	}
+	
+	// Retrieves amount of time a task has run, in milliseconds
+	private long TimeElapsedForTask()
+	{				
+		// If the task has not completed yet, its finish time may be zero
+		if (_finishTime == 0)
+		{
+			Date now = new Date();			
+			System.out.println("Running task elapsed time: " + (now.getTime() - _startTime));
+			
+			return now.getTime() - _startTime;
+		}
+		else
+		{
+			long timeElapsedForTask = _finishTime - _startTime;		
+			return timeElapsedForTask;
+		}
+	}
+}

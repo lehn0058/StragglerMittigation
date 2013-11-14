@@ -1,6 +1,7 @@
 package mapreduce;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.*;
 
 import org.apache.hadoop.fs.Path;

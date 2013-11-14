@@ -111,15 +111,15 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
-!SESSION 2013-11-06 20:24:31.887 -----------------------------------------------
+!SESSION 2013-11-09 13:28:30.815 -----------------------------------------------
 eclipse.buildId=4.3.0.M20130911-1000
 java.version=1.7.0_40
 java.vendor=Oracle Corporation
 BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
 Framework arguments:  -product org.eclipse.epp.package.standard.product
-Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -data C:\Users\Brandon\workspace -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
 
-!ENTRY org.eclipse.egit.ui 2 0 2013-11-06 20:24:52.706
+!ENTRY org.eclipse.egit.ui 2 0 2013-11-09 13:28:52.587
 !MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
 Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
 The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
@@ -127,7 +127,209 @@ this system level configuration. The Git installation location can be configured
 Team > Git > Configuration preference page's 'System Settings' tab.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
 
-!ENTRY org.eclipse.egit.ui 2 0 2013-11-06 20:24:52.711
+!ENTRY org.eclipse.egit.ui 2 0 2013-11-09 13:28:52.618
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Brandon'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.jdt.launching 4 113 2013-11-09 15:24:13.118
+!MESSAGE Failed to connect to remote VM. Connection timed out.
+!STACK 0
+org.eclipse.jdi.TimeoutException
+	at org.eclipse.jdi.internal.connect.SocketTransportService.attach(SocketTransportService.java:162)
+	at org.eclipse.jdi.internal.connect.SocketTransportImpl.attach(SocketTransportImpl.java:45)
+	at org.eclipse.jdi.internal.connect.SocketAttachingConnectorImpl.attach(SocketAttachingConnectorImpl.java:134)
+	at org.eclipse.jdt.internal.launching.SocketAttachConnector.connect(SocketAttachConnector.java:141)
+	at org.eclipse.jdt.internal.launching.JavaRemoteApplicationLaunchConfigurationDelegate.launch(JavaRemoteApplicationLaunchConfigurationDelegate.java:84)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:858)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:707)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1018)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1222)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.jdt.launching 4 113 2013-11-09 15:24:25.524
+!MESSAGE Failed to connect to remote VM. Connection timed out.
+!STACK 0
+org.eclipse.jdi.TimeoutException
+	at org.eclipse.jdi.internal.connect.SocketTransportService.attach(SocketTransportService.java:162)
+	at org.eclipse.jdi.internal.connect.SocketTransportImpl.attach(SocketTransportImpl.java:45)
+	at org.eclipse.jdi.internal.connect.SocketAttachingConnectorImpl.attach(SocketAttachingConnectorImpl.java:134)
+	at org.eclipse.jdt.internal.launching.SocketAttachConnector.connect(SocketAttachConnector.java:141)
+	at org.eclipse.jdt.internal.launching.JavaRemoteApplicationLaunchConfigurationDelegate.launch(JavaRemoteApplicationLaunchConfigurationDelegate.java:84)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:858)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:707)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1018)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1222)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.jdt.launching 4 113 2013-11-09 15:26:30.540
+!MESSAGE Failed to connect to remote VM. Connection timed out.
+!STACK 0
+org.eclipse.jdi.TimeoutException
+	at org.eclipse.jdi.internal.connect.SocketTransportService.attach(SocketTransportService.java:162)
+	at org.eclipse.jdi.internal.connect.SocketTransportImpl.attach(SocketTransportImpl.java:45)
+	at org.eclipse.jdi.internal.connect.SocketAttachingConnectorImpl.attach(SocketAttachingConnectorImpl.java:134)
+	at org.eclipse.jdt.internal.launching.SocketAttachConnector.connect(SocketAttachConnector.java:141)
+	at org.eclipse.jdt.internal.launching.JavaRemoteApplicationLaunchConfigurationDelegate.launch(JavaRemoteApplicationLaunchConfigurationDelegate.java:84)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:858)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:707)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1018)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1222)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.jdt.launching 4 113 2013-11-09 15:26:59.675
+!MESSAGE Failed to connect to remote VM. Connection timed out.
+!STACK 0
+org.eclipse.jdi.TimeoutException
+	at org.eclipse.jdi.internal.connect.SocketTransportService.attach(SocketTransportService.java:162)
+	at org.eclipse.jdi.internal.connect.SocketTransportImpl.attach(SocketTransportImpl.java:45)
+	at org.eclipse.jdi.internal.connect.SocketAttachingConnectorImpl.attach(SocketAttachingConnectorImpl.java:134)
+	at org.eclipse.jdt.internal.launching.SocketAttachConnector.connect(SocketAttachConnector.java:141)
+	at org.eclipse.jdt.internal.launching.JavaRemoteApplicationLaunchConfigurationDelegate.launch(JavaRemoteApplicationLaunchConfigurationDelegate.java:84)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:858)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:707)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1018)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1222)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.jdt.launching 4 113 2013-11-09 15:27:08.657
+!MESSAGE Failed to connect to remote VM. Connection timed out.
+!STACK 0
+org.eclipse.jdi.TimeoutException
+	at org.eclipse.jdi.internal.connect.SocketTransportService.attach(SocketTransportService.java:162)
+	at org.eclipse.jdi.internal.connect.SocketTransportImpl.attach(SocketTransportImpl.java:45)
+	at org.eclipse.jdi.internal.connect.SocketAttachingConnectorImpl.attach(SocketAttachingConnectorImpl.java:134)
+	at org.eclipse.jdt.internal.launching.SocketAttachConnector.connect(SocketAttachConnector.java:141)
+	at org.eclipse.jdt.internal.launching.JavaRemoteApplicationLaunchConfigurationDelegate.launch(JavaRemoteApplicationLaunchConfigurationDelegate.java:84)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:858)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:707)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1018)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1222)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.jdt.launching 4 113 2013-11-09 15:32:01.566
+!MESSAGE Failed to connect to remote VM. Connection timed out.
+!STACK 0
+org.eclipse.jdi.TimeoutException
+	at org.eclipse.jdi.internal.connect.SocketTransportService.attach(SocketTransportService.java:162)
+	at org.eclipse.jdi.internal.connect.SocketTransportImpl.attach(SocketTransportImpl.java:45)
+	at org.eclipse.jdi.internal.connect.SocketAttachingConnectorImpl.attach(SocketAttachingConnectorImpl.java:134)
+	at org.eclipse.jdt.internal.launching.SocketAttachConnector.connect(SocketAttachConnector.java:141)
+	at org.eclipse.jdt.internal.launching.JavaRemoteApplicationLaunchConfigurationDelegate.launch(JavaRemoteApplicationLaunchConfigurationDelegate.java:84)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:858)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:707)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1018)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1222)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2013-11-11 21:11:01.998
+!MESSAGE Internal Error
+!STACK 1
+Java Model Exception: Java Model Status [C:\Users\Brandon\workspace\hadoop\src\hadoop-mapreduce-client-core-2.2.0.jar is not on its project's build path]
+	at org.eclipse.jdt.internal.core.PackageFragmentRoot.getRawClasspathEntry(PackageFragmentRoot.java:557)
+	at org.eclipse.jdt.internal.core.JavaElement.getJavadocBaseLocation(JavaElement.java:670)
+	at org.eclipse.jdt.internal.core.BinaryType.getJavadocContents(BinaryType.java:1009)
+	at org.eclipse.jdt.internal.core.BinaryMethod.getAttachedJavadoc(BinaryMethod.java:669)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContent(JavadocContentAccess2.java:499)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.getHoverInfo(JavadocHover.java:694)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.internalGetHoverInfo(JavadocHover.java:612)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.getHoverInfo2(JavadocHover.java:604)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:163)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:129)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:85)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:166)
+!SUBENTRY 1 org.eclipse.jdt.core 4 1006 2013-11-11 21:11:02.008
+!MESSAGE C:\Users\Brandon\workspace\hadoop\src\hadoop-mapreduce-client-core-2.2.0.jar is not on its project's build path
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2013-11-11 21:30:08.307
+!MESSAGE Internal Error
+!STACK 1
+Java Model Exception: Java Model Status [C:\Users\Brandon\workspace\hadoop\src\hadoop-common-2.2.0.jar is not on its project's build path]
+	at org.eclipse.jdt.internal.core.PackageFragmentRoot.getRawClasspathEntry(PackageFragmentRoot.java:557)
+	at org.eclipse.jdt.internal.core.JavaElement.getJavadocBaseLocation(JavaElement.java:670)
+	at org.eclipse.jdt.internal.core.BinaryType.getJavadocContents(BinaryType.java:1009)
+	at org.eclipse.jdt.internal.core.BinaryMethod.getAttachedJavadoc(BinaryMethod.java:669)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContent(JavadocContentAccess2.java:499)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.extractJavadoc(ProposalInfo.java:93)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.computeInfo(ProposalInfo.java:77)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.getInfo(ProposalInfo.java:62)
+	at org.eclipse.jdt.internal.ui.text.java.AbstractJavaCompletionProposal.getAdditionalProposalInfo(AbstractJavaCompletionProposal.java:573)
+	at org.eclipse.jface.text.contentassist.AdditionalInfoController$3.run(AdditionalInfoController.java:106)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.jdt.core 4 1006 2013-11-11 21:30:08.307
+!MESSAGE C:\Users\Brandon\workspace\hadoop\src\hadoop-common-2.2.0.jar is not on its project's build path
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2013-11-11 21:30:59.866
+!MESSAGE Internal Error
+!STACK 1
+Java Model Exception: Java Model Status [C:\Users\Brandon\workspace\hadoop\src\hadoop-common-2.2.0.jar is not on its project's build path]
+	at org.eclipse.jdt.internal.core.PackageFragmentRoot.getRawClasspathEntry(PackageFragmentRoot.java:557)
+	at org.eclipse.jdt.internal.core.JavaElement.getJavadocBaseLocation(JavaElement.java:670)
+	at org.eclipse.jdt.internal.core.BinaryType.getJavadocContents(BinaryType.java:1009)
+	at org.eclipse.jdt.internal.core.BinaryMethod.getAttachedJavadoc(BinaryMethod.java:669)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContent(JavadocContentAccess2.java:499)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.extractJavadoc(ProposalInfo.java:93)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.computeInfo(ProposalInfo.java:77)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.getInfo(ProposalInfo.java:62)
+	at org.eclipse.jdt.internal.ui.text.java.AbstractJavaCompletionProposal.getAdditionalProposalInfo(AbstractJavaCompletionProposal.java:573)
+	at org.eclipse.jface.text.contentassist.AdditionalInfoController$3.run(AdditionalInfoController.java:106)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.jdt.core 4 1006 2013-11-11 21:30:59.866
+!MESSAGE C:\Users\Brandon\workspace\hadoop\src\hadoop-common-2.2.0.jar is not on its project's build path
+
+!ENTRY org.eclipse.jface.text 4 0 2013-11-11 21:37:51.898
+!MESSAGE Unexpected runtime error while computing a text hover
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.jdt.internal.ui.viewsupport.JavaElementLinks.createURI(JavaElementLinks.java:333)
+	at org.eclipse.jdt.internal.ui.viewsupport.JavaElementLinks.createURI(JavaElementLinks.java:307)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.addAnnotation(JavadocHover.java:1082)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.getAnnotations(JavadocHover.java:1033)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.addAnnotations(JavadocHover.java:967)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.getHoverInfo(JavadocHover.java:690)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.internalGetHoverInfo(JavadocHover.java:612)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.getHoverInfo2(JavadocHover.java:604)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:163)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:129)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:85)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:166)
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2013-11-11 21:38:09.042
+!MESSAGE Internal Error
+!STACK 1
+Java Model Exception: Java Model Status [C:\Users\Brandon\workspace\hadoop\src\hadoop-common-2.2.0.jar is not on its project's build path]
+	at org.eclipse.jdt.internal.core.PackageFragmentRoot.getRawClasspathEntry(PackageFragmentRoot.java:557)
+	at org.eclipse.jdt.internal.core.JavaElement.getJavadocBaseLocation(JavaElement.java:670)
+	at org.eclipse.jdt.internal.core.BinaryType.getJavadocContents(BinaryType.java:1009)
+	at org.eclipse.jdt.internal.core.BinaryMethod.getAttachedJavadoc(BinaryMethod.java:669)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContent(JavadocContentAccess2.java:499)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.extractJavadoc(ProposalInfo.java:93)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.computeInfo(ProposalInfo.java:77)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.getInfo(ProposalInfo.java:62)
+	at org.eclipse.jdt.internal.ui.text.java.AbstractJavaCompletionProposal.getAdditionalProposalInfo(AbstractJavaCompletionProposal.java:573)
+	at org.eclipse.jface.text.contentassist.AdditionalInfoController$3.run(AdditionalInfoController.java:106)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.jdt.core 4 1006 2013-11-11 21:38:09.042
+!MESSAGE C:\Users\Brandon\workspace\hadoop\src\hadoop-common-2.2.0.jar is not on its project's build path
+!SESSION 2013-11-14 07:16:40.106 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0_40
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2013-11-14 07:17:09.925
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2013-11-14 07:17:10.073
 !MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
 user global configuration and to define the default location to store repositories: 'C:\Users\Brandon'. If this is
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and

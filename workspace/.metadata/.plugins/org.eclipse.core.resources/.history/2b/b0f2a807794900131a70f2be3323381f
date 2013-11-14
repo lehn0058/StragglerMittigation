@@ -1,0 +1,173 @@
+package mapreduce;
+
+import java.io.IOException;
+import java.util.*;
+
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.conf.*;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapred.*;
+import org.apache.hadoop.mapreduce.server.jobtracker.TaskTracker;
+import org.apache.hadoop.util.*;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+public class Status
+{
+	private JobClient _client;
+	private RunningJob _runningJob;
+	private JobConf _conf;
+	
+	public Status(JobClient client, RunningJob runningJob, JobConf conf)
+	{
+		
+	}
+	
+	public void Monitor() throws Exception
+	{
+		// Start the job tracker
+		JobTracker jobTracker = JobTracker.startTracker(conf);
+		
+		// org.apache.hadoop.mapred.TaskTracker taskTracker = new org.apache.hadoop.mapred.TaskTracker()
+		// Probe for stragglers while the job is running
+		while (!runningJob.isComplete())
+		{
+			// Wait for a time before continuing
+			Thread.sleep(5000);
+
+			// Retrieve the latest task progress
+			JobStatus jobStatus = runningJob.getJobStatus();
+			ArrayList<TaskReport> allTaskReports = RetrieveAllTaskReports(client, jobStatus.getJobID());
+
+			// Determine which tasks are straggling
+			ArrayList<TaskReport> stragglers = FindStragglers(allTaskReports);
+
+			// Find task reports per machine
+			
+			
+			// Check each straggler to see if they are CPU/RAM bound
+			for (TaskReport report : stragglers) 
+			{
+				if (IsCPUBound(report))	AddCPUIfAvailable(report);
+				if (IsRAMBound(report))	AddRAMIfAvailable(report);
+			}
+		}
+	}
+	
+	private void FindMachineTaskReport(ArrayList<TaskReport> taskReports)
+	{
+		Collection<TaskTrackerStatus> taskTrackerStatuses = jobTracker.activeTaskTrackers();
+
+		for (TaskTrackerStatus taskTrackerStatus : taskTrackerStatuses)
+		{				
+		     // TaskTrackerStatus has getHost()!!!!!!!!
+
+		     List<TaskStatus> taskStatuses = taskTrackerStatus.getTaskReports();
+
+		     for (TaskStatus taskStatus : taskStatuses)
+		     {
+		          TaskAttemptID taskAttemptId = taskStatus.getTaskID();
+		          TaskID taskID = taskAttemptId.getTaskID();
+
+		          // TaskReport has TaskID!!!!!
+		     }
+		}
+	}
+
+	// Retrieves amount of time a task has run, in milliseconds
+	private static long TimeElapsedForTask(TaskReport taskReport)
+	{
+		// If the task has not completed yet, its finish time may be zero
+		if (taskReport.getFinishTime() == 0)
+		{
+			Date now = new Date();
+			return now.getTime() - taskReport.getStartTime();
+		}
+		else
+		{
+			return taskReport.getFinishTime() - taskReport.getStartTime();
+		}
+	}
+
+	private static float MeanRunTime(ArrayList<TaskReport> taskReports)
+	{
+		float totalRuntime = 0.0f;
+		for (TaskReport taskReport : taskReports)
+		{
+			totalRuntime += TimeElapsedForTask(taskReport);
+		}
+
+		return totalRuntime / taskReports.size();
+	}
+
+	private static ArrayList<TaskReport> FindStragglers(ArrayList<TaskReport> taskReports)
+	{
+		// Get the mean runtime
+		float meanRuntime = MeanRunTime(taskReports);
+
+		// Find all tasks that are straggling
+		ArrayList<TaskReport> stragglingTasks = new ArrayList<TaskReport>();
+		for (TaskReport taskReport : taskReports)
+		{
+			// If the task is not complete AND it's runtime is more than the
+			// mean runtime, then it is a straggler
+			if (taskReport.getProgress() != 1 && TimeElapsedForTask(taskReport) > meanRuntime)
+			{
+				stragglingTasks.add(taskReport);
+			}
+		}
+
+		return stragglingTasks;
+	}
+
+	// Retrieve all tasks
+	private ArrayList<TaskReport> RetrieveAllTaskReports(JobClient client, JobID jobId) throws IOException
+	{
+		ArrayList<TaskReport> allTaskReports = new ArrayList<TaskReport>();
+
+		for (TaskReport report : client.getMapTaskReports(jobId))
+		{
+			allTaskReports.add(report);
+		}
+
+		for (TaskReport report : client.getReduceTaskReports(jobId))
+		{
+			allTaskReports.add(report);
+		}
+
+		return allTaskReports;
+	}
+
+	// Checks to see if a task is currently CPU bound
+	private boolean IsCPUBound(TaskReport report)
+	{
+		throw new NotImplementedException();
+	}
+
+	// Adds a CPU to a task if one is available in the resource pool
+	private void AddCPUIfAvailable(TaskReport report)
+	{
+		throw new NotImplementedException();
+	}
+
+	// Checks to see if a task is currently RAM bound
+	private boolean IsRAMBound(TaskReport report)
+	{
+		throw new NotImplementedException();
+	}
+
+	// Adds 1 GB of RAM to a task if it is available in the resource pool
+	private void AddRAMIfAvailable(TaskReport report)
+	{
+		throw new NotImplementedException();
+	}
+}
+
+
+
+
+
+
+
+
+

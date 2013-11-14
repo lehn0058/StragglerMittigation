@@ -1,0 +1,9 @@
+package mapreduce;
+
+public class MachineTaskReport
+{
+	public MachineTaskReport(String hostName, TaskReport taskReport)
+	{
+		
+	}
+}

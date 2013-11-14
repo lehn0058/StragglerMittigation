@@ -1,2 +1,4 @@
 1383501637670	Rename type 'Log'
 1383501653608	Rename method 'WriteToFile'
+1384026777397	Encapsulate field '_hostName'
+1384026790407	Encapsulate field '_taskReport'

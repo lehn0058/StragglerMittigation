@@ -1,0 +1,135 @@
+package mapreduce;
+
+import com.vmware.apputils.*;
+import com.vmware.vim.*;
+import com.vmware.vim25.*;
+import com.vmware.vim25.mo.*;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.*;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
+import javax.xml.ws.BindingProvider;
+import javax.xml.ws.soap.SOAPFaultException;
+
+public class TestClient {
+
+	// Authentication is handled by using a TrustManager and supplying
+	// a host name verifier method. (The host name verifier is declared
+	// in the main function.)
+	// See Example: Obtaining a Session Token - Code Fragments from
+	// VMPromoteDisks.java for more details.
+	private static class TrustAllTrustManager implements
+			javax.net.ssl.TrustManager, javax.net.ssl.X509TrustManager {
+
+		public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+			return null;
+		}
+
+		public boolean isServerTrusted(
+				java.security.cert.X509Certificate[] certs) {
+			return true;
+		}
+
+		public boolean isClientTrusted(
+				java.security.cert.X509Certificate[] certs) {
+			return true;
+		}
+
+		public void checkServerTrusted(
+				java.security.cert.X509Certificate[] certs, String authType)
+				throws java.security.cert.CertificateException {
+			return;
+		}
+
+		public void checkClientTrusted(
+				java.security.cert.X509Certificate[] certs, String authType)
+				throws java.security.cert.CertificateException {
+			return;
+		}
+	}
+
+	private void PowerOnVM(ServiceContent content)
+	{
+		//content.getRootFolder()
+		
+		ServiceInstance si;
+		try {
+			ManagedEntity[] hostsystems = new InventoryNavigator(si.getRootFolder()).searchManagedEntities("HostSystem");
+			for(int i=0;i<hostsystems.length;i++) {
+				HostSystem host = (HostSystem) hostsystems[i];
+				System.out.println("Host: " + host.getName());
+				VirtualMachine[] vms = (VirtualMachine[]) host.getVms();
+				for(int j=0;j<vms.length;j++) {
+					VirtualMachine vm = (VirtualMachine) vms[j];
+					System.out.println("- " + vm.getName());
+				}
+			}
+		} catch (RemoteException | InvalidProperty | RuntimeFault e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		try {
+			// Server URL and credentials.
+			String serverName = args[0];
+			String userName = args[1];
+			String password = args[2];
+			String url = "https://" + serverName + "/sdk/vimService";
+
+			// Variables of the following types for access to the API methods
+			// and to the vSphere inventory.
+			// -- ManagedObjectReference for the ServiceInstance on the Server
+			// -- VimService for access to the vSphere Web service
+			// -- VimPortType for access to methods
+			// -- ServiceContent for access to managed object services
+			ManagedObjectReference SVC_INST_REF = new ManagedObjectReference();
+			VimService vimService;
+			VimPortType vimPort;
+			ServiceContent serviceContent;
+
+			// Declare a host name verifier that will automatically enable
+			// the connection. The host name verifier is invoked during
+			// the SSL handshake.
+			HostnameVerifier hv = new HostnameVerifier() {
+				public boolean verify(String urlHostName, SSLSession session) {
+					return true;
+				}
+			};
+			// Create the trust manager.
+			javax.net.ssl.TrustManager[] trustAllCerts = new javax.net.ssl.TrustManager[1];
+			javax.net.ssl.TrustManager tm = new TrustAllTrustManager();
+			trustAllCerts[0] = tm;
+
+			// Create the SSL context
+			javax.net.ssl.SSLContext sc = javax.net.ssl.SSLContext
+					.getInstance("SSL");
+
+			// Create the session context
+			javax.net.ssl.SSLSessionContext sslsc = sc
+					.getServerSessionContext();
+
+			// Initialize the contexts; the session context takes the trust
+			// manager.
+			sslsc.setSessionTimeout(0);
+			sc.init(null, trustAllCerts, null);
+
+			// Use the default socket factory to create the socket for the
+			// secure connection
+			javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc
+					.getSocketFactory());
+			// Set the default host name verifier to enable the connection.
+			HttpsURLConnection.setDefaultHostnameVerifier(hv);
+
+		} catch (Exception e) {
+			System.out.println(" Connect Failed ");
+			e.printStackTrace();
+		}
+	}// end main()
+}// end class TestClient

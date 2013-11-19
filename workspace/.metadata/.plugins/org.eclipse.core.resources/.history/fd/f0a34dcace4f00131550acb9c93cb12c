@@ -1,0 +1,23 @@
+package mapreduce;
+
+public class ResourceUtilization
+{
+	private float _cpuUtilization;
+	private float _memoryUtilization;
+	
+	public ResourceUtilization(float cpuUtilization, float memoryUtilization)
+	{
+		_cpuUtilization = cpuUtilization;
+		_memoryUtilization = memoryUtilization;
+	}
+	
+	public float getCpuUtilization()
+	{
+		return _cpuUtilization;
+	}
+	
+	public float getMemoryUtilization()
+	{
+		return _memoryUtilization;
+	}
+}

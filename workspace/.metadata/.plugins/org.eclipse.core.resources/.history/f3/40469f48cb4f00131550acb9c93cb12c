@@ -1,0 +1,31 @@
+package mapreduce;
+
+import com.vmware.vim25.*;
+import com.vmware.vim25.mo.*;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.rmi.RemoteException;
+
+public class TestClient {
+
+	private static void Go(String url, String username, String password) throws RemoteException, MalformedURLException, InvalidProperty, RuntimeFault
+	{
+		ServiceInstance si = new ServiceInstance(new URL(url), username, password, true);
+		ManagedEntity[] hostsystems = new InventoryNavigator(si.getRootFolder()).searchManagedEntities("HostSystem");
+		for(int i=0;i<hostsystems.length;i++) {
+			HostSystem host = (HostSystem) hostsystems[i];
+			System.out.println("Host: " + host.getName());
+			VirtualMachine[] vms = (VirtualMachine[]) host.getVms();
+			for(int j=0;j<vms.length;j++) {
+				VirtualMachine vm = (VirtualMachine) vms[j];
+				System.out.println("- " + vm.getName());
+			}
+		}
+	}
+	
+	public static void main(String[] args) throws InvalidProperty, RuntimeFault, RemoteException, MalformedURLException {
+
+		Go("https://192.168.1.150/sdk", "root", "GreenLantern56");
+	}// end main()
+}// end class TestClient

@@ -1,0 +1,34 @@
+package mapreduce;
+
+import com.vmware.vim.*;
+import com.vmware.apputils.*;
+
+public class vSphereClient
+{
+	// Connect to the default server.
+	public void Connect()
+	{
+		Connect("https://myVMwareServiceName.com/sdk", "root", "GreenLantern56");
+	}
+	
+	// Connects to the server by service url with the given user credentials.
+	public void Connect(String url, String username, String password) throws Exception
+	{
+		AppUtil cb = null;
+		String[]  args = new String[3];
+		args[0] = url;
+		args[1] = username;
+		args[2] = password;
+		
+	      try {      
+	          cb = AppUtil.initialize("Connect",args);
+	          cb.connect();
+	          System.out.println("Connection Succesful.");
+	          
+	          cb.disConnect();
+	       }
+	       catch(Exception e) {
+	          System.out.println("Connection UnSuccesful.");
+	       }
+	}	
+}

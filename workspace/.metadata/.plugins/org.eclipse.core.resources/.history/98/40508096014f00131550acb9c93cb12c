@@ -1,0 +1,22 @@
+package mapreduce;
+
+import com.vmware.vim.*;
+import com.vmware.apputils.*;
+
+public class vSphereClient
+{
+	public void Connect()
+	{
+	      try {
+	          Connect obj = new Connect();      
+	          cb = AppUtil.initialize("Connect",args);
+	          cb.connect();
+	          System.out.println("Connection Succesful.");
+	          cb.disConnect();
+	       }
+	       catch(Exception e) {
+	          System.out.println("Connection UnSuccesful.");
+	          throw e;
+	       }
+	}	
+}

@@ -1,0 +1,17 @@
+package mapreduce;
+
+import com.vmware.vim25.*;
+import com.vmware.vim25.mo.*;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.rmi.RemoteException;
+
+public class TestClient
+{	
+	public static void main(String[] args)
+	{
+		vSphereClient client = new vSphereClient();
+		client.retrieveMachineUtilization("ubuntu-master");
+	}// end main()
+}// end class TestClient

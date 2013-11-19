@@ -1,0 +1,35 @@
+package mapreduce;
+
+import com.vmware.vim25.*;
+import com.vmware.vim25.mo.*;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.rmi.RemoteException;
+
+public class vSphereClient
+{
+	// Connect to the hypervisor server
+	ServiceInstance si = new ServiceInstance(new URL(url), username, password, true);
+	
+	// Retrieve all virtual machines
+	ManagedEntity[] virtualMachines = new InventoryNavigator(si.getRootFolder()).searchManagedEntities("VirtualMachine");
+	
+	for (ManagedEntity managedEntity : virtualMachines)
+	{
+		VirtualMachine virtualMachine = (VirtualMachine) managedEntity;
+		System.out.println("- " + virtualMachine.getName());
+		
+		if (virtualMachine.getName().equalsIgnoreCase("ubuntu-master"))
+		{
+			int maxCpuUsage = virtualMachine.getRuntime().getMaxCpuUsage();
+            int currentCpuUsage = virtualMachine.getSummary().getQuickStats().getOverallCpuUsage();
+            float currentCpuUtilization = (float)currentCpuUsage / (float)maxCpuUsage;
+
+            int maxMemoryUsage = virtualMachine.getRuntime().getMaxMemoryUsage();
+            int currentMemoryUsage = virtualMachine.getSummary().getQuickStats().getGuestMemoryUsage();
+            float currentMemoryUtilization = (float)currentMemoryUsage / (float)maxMemoryUsage;
+		}
+	}
+	
+}

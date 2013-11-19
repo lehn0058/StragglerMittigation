@@ -1,14 +1,11 @@
 package mapreduce;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.*;
 
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.conf.*;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
-import org.apache.hadoop.util.*;
         
 public class WordCount {
 
@@ -29,7 +26,7 @@ public class WordCount {
     public static class Reduce extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
       public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
     	  
-//    	  // Induce artificial straggler
+//    	  // Induce artificial stragglers
 //    	  try
 //    	  {
 //    		  Thread.sleep(100000);
@@ -66,13 +63,10 @@ public class WordCount {
       
       // Submit the job
       JobClient client = new JobClient(conf);
-      RunningJob runningJob = client.submitJob(conf);
-           
-      
-      
+      RunningJob runningJob = client.submitJob(conf);    
       
       // Begin monitoring for stragglers
-      Status status = new Status(client, runningJob, conf);
+      Status status = new Status(client, runningJob);
       status.Monitor();
     }
 }

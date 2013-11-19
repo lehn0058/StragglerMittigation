@@ -28,5 +28,9 @@
 	<classpathentry kind="lib" path="C:/Users/Brandon/workspace/hadoop/src/hadoop-yarn-server-tests-2.2.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brandon/workspace/hadoop/src/hadoop-yarn-server-web-proxy-2.2.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brandon/workspace/hadoop/src/hadoop-yarn-site-2.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/workspace/hadoop/src/apputils.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/workspace/hadoop/src/samples.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/workspace/hadoop/src/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/workspace/hadoop/src/vijava5120121125.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

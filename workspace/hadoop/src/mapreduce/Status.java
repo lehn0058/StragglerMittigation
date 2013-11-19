@@ -10,39 +10,23 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.mapreduce.Cluster;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class Status
 {
 	private JobClient _client;
 	private RunningJob _runningJob;
-	private JobConf _conf;
-	//private JobTracker _jobTracker;
+	private vSphereClient _vSphereClient;
 	
-	public Status(JobClient client, RunningJob runningJob, JobConf conf)
+	public Status(JobClient client, RunningJob runningJob)
 	{
 		_client = client;
 		_runningJob = runningJob;
-		_conf = conf;
 	}
 	
 	// TODO: Analysis should be done for reducers and mappers separately.
 	// This is because reducers are long lived and are not necessarily straggling
 	// just because they are running longer than map tasks.
 	public void Monitor() throws Exception
-	{		
-		// Start the job tracker
-		//_jobTracker = JobTracker.startTracker(_conf);
-		
-		Cluster cluster = _client.getClusterHandle();
-		cluster.get
-		
-		//System.out.println("Job Tracker Map Task reports: " + _jobTracker.getMapTaskReports(_runningJob.getID()));
-		//System.out.println("Job Tracker Reduce Task reports: " + _jobTracker.getReduceTaskReports(_runningJob.getID()));
-				
-		System.out.println("JobId: " + _runningJob.getID());
-		
-		// org.apache.hadoop.mapred.TaskTracker taskTracker = new org.apache.hadoop.mapred.TaskTracker()
+	{					
 		// Probe for stragglers while the job is running
 		while (!_runningJob.isComplete())
 		{
@@ -61,20 +45,30 @@ public class Status
 			System.out.println("Number of completed tasks: " + NumberOfCompletedTasks(allTaskReports));
 			System.out.println("Straggling tasks found: " + stragglers.size());
 			
-//			// Find task reports per machine
-//			ArrayList<MachineTaskReport> machineTaskReports = FindMachineTaskReport(stragglers);
-//			
-//			// Check each straggler to see if they are CPU/RAM bound
-//			for (MachineTaskReport machineTaskReport : machineTaskReports) 
-//			{
-//				if (IsCPUBound(machineTaskReport))	AddCPUIfAvailable(machineTaskReport);
-//				if (IsRAMBound(machineTaskReport))	AddRAMIfAvailable(machineTaskReport);
-//			}
+			// Find task reports per machine
+			ArrayList<MachineTaskReport> machineTaskReports = FindMachineTaskReport(stragglers);
+			
+			// Check each straggler to see if they are CPU/RAM bound
+			for (MachineTaskReport machineTaskReport : machineTaskReports) 
+			{
+				if (IsCPUBound(machineTaskReport)) AddCPUIfAvailable(machineTaskReport);
+				if (IsRAMBound(machineTaskReport)) AddRAMIfAvailable(machineTaskReport);
+			}
 		}
 	}
 	
-//	private ArrayList<MachineTaskReport> FindMachineTaskReport(ArrayList<TaskReport> taskReports)
-//	{
+	private ArrayList<MachineTaskReport> FindMachineTaskReport(ArrayList<TaskReport> taskReports)
+	{
+		// NOTE: Ideally, machine information would be related to the TaskReport. This will require a change to the Hadoop API.
+		// For the moment, we will just be using a single node cluster. So, we assume this is running on that single machine.
+		ArrayList<MachineTaskReport> machineTaskReports = new ArrayList<MachineTaskReport>();
+		for (TaskReport taskReport : taskReports)
+		{
+			machineTaskReports.add(new MachineTaskReport("ubuntu-master", taskReport));
+		}
+		
+		return machineTaskReports;
+		
 //		Collection<TaskTrackerStatus> taskTrackerStatuses = _jobTracker.activeTaskTrackers();
 //		ArrayList<MachineTaskReport> machineTaskReports = new ArrayList<MachineTaskReport>();
 //		
@@ -108,7 +102,7 @@ public class Status
 //		System.out.println("MachineTaskReports size: " + machineTaskReports.size());
 //		
 //		return machineTaskReports;
-//	}
+	}
 
 	private static ArrayList<TaskReport> FindStragglers(ArrayList<TaskReport> taskReports)
 	{
@@ -216,28 +210,40 @@ public class Status
 		return totalRuntime / numberOfStartedTasks;
 	}
 
+	// Retrieves an open connection to the hypervisor. Since establishing the connection
+	// is expensive, we keep a reference to the connected client around after its first use.
+	private vSphereClient getClient()
+	{
+		if (_vSphereClient == null) _vSphereClient = new vSphereClient();
+		return _vSphereClient;
+	}
+	
 	// Checks to see if a task is currently CPU bound
 	private boolean IsCPUBound(MachineTaskReport machineTaskReport)
 	{
-		throw new NotImplementedException();
+		ResourceUtilization resourceUtilization = getClient().retrieveMachineUtilization(machineTaskReport.getHostName());
+		System.out.println("CPU utilization: " + resourceUtilization.getCpuUtilization() * 100 + "%");
+		return resourceUtilization.getCpuUtilization() > 0.9 ? true : false;
 	}
 
 	// Adds a CPU to a task if one is available in the resource pool
 	private void AddCPUIfAvailable(MachineTaskReport machineTaskReport)
 	{
-		throw new NotImplementedException();
+		//throw new NotImplementedException();
 	}
 
 	// Checks to see if a task is currently RAM bound
 	private boolean IsRAMBound(MachineTaskReport machineTaskReport)
 	{
-		throw new NotImplementedException();
+		ResourceUtilization resourceUtilization = getClient().retrieveMachineUtilization(machineTaskReport.getHostName());
+		System.out.println("Memory utilization: " + resourceUtilization.getMemoryUtilization() * 100 + "%");
+		return resourceUtilization.getMemoryUtilization() > 0.9 ? true : false;
 	}
 
 	// Adds 1 GB of RAM to a task if it is available in the resource pool
 	private void AddRAMIfAvailable(MachineTaskReport machineTaskReport)
 	{
-		throw new NotImplementedException();
+		//throw new NotImplementedException();
 	}
 }
 
